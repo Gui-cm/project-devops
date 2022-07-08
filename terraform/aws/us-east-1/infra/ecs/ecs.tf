@@ -1,12 +1,12 @@
 module "ecs" {
   source = "terraform-aws-modules/ecs/aws"
 
-  cluster_name = "project-devops"
+  cluster_name = lower("cluster-${var.tags.Name}")
 
   autoscaling_capacity_providers = {
-    one = {
-      auto_scaling_group_arn         = "arn:aws:autoscaling:eu-west-1:012345678901:autoScalingGroup:08419a61:autoScalingGroupName/ecs-ec2-one-20220603194933774300000011"
-      managed_termination_protection = "ENABLED"
+    asg = {
+      auto_scaling_group_arn         = module.asg.autoscaling_group_arn
+      managed_termination_protection = "DISABLED"
 
       managed_scaling = {
         maximum_scaling_step_size = 2
@@ -22,8 +22,5 @@ module "ecs" {
     }
   }
 
-  tags = {
-    Environment = "Development"
-    Project     = "EcsEc2"
-  }
+  tags = var.tags
 }
