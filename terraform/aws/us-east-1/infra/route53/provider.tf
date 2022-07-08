@@ -1,19 +1,14 @@
 provider "aws" {
-  version = "~> 3.74.1"
+  version = ">= 3.75.0"
   region = "us-east-1"
-  assume_role {
-    role_arn = "arn:aws:iam::590284024382:role/admin-role"
-  }
+  profile = "project-devops"
 }
 
-remote_state {
-  backend = "s3"
-  config = {
-    encrypt        = true
-    bucket         = "terraform-state"
-    dynamodb_table = "terraform_lock"
-    region         = "us-east-1"
-    key            = "terraform/aws/us-east-1/infra/terraform.tfstate"
-    role_arn       = ""
+terraform {
+  backend "s3" {
+    bucket = "terraform-state-gcm"
+    key    = "project-devops/terraform/aws/us-east-1/infra/vpc/terraform.state"
+    region = "us-east-1"
+    profile = "project-devops"
   }
 }
