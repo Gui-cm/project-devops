@@ -1,6 +1,8 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
+  create_vpc = true
+
   name = lower(var.tags.Name)
   cidr = "10.0.0.0/16"
 
