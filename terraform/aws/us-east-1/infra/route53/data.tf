@@ -1,4 +1,4 @@
-data "aws_route53_zone" "getninjas_io" {
-  name         = "getninjas.io"
+data "aws_route53_zone" "guicmtech" {
+  name         = "guicmtech.com.br"
   private_zone = false
 }
