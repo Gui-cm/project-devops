@@ -1,5 +1,5 @@
 module "asg" {
-  source  = "terraform-aws-modules/autoscaling/aws"
+  source = "terraform-aws-modules/autoscaling/aws"
 
   # Autoscaling group
   name = lower("asg-${var.tags.Name}")
@@ -9,7 +9,7 @@ module "asg" {
   desired_capacity          = 1
   wait_for_capacity_timeout = 0
   health_check_type         = "EC2"
-  vpc_zone_identifier       = ["subnet-05f3fc35776abdabb"]
+  vpc_zone_identifier       = ["subnet-077c66685ddf21759"]
 
   instance_refresh = {
     strategy = "Rolling"
@@ -22,9 +22,9 @@ module "asg" {
     triggers = ["tag"]
   }
 
-  image_id          = data.aws_ami.amazon_linux.id
-  instance_type     = "t3.micro"
-  ebs_optimized     = true
+  image_id      = data.aws_ami.amazon_linux.id
+  instance_type = "t3.micro"
+  ebs_optimized = true
 
   network_interfaces = [
     {

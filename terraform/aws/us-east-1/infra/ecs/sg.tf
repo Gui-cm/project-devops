@@ -3,8 +3,8 @@ module "sg" {
 
   create = true
 
-  name        = lower("${var.tags.Name}-${var.tags.Service}")
-  vpc_id      = data.aws_vpc.vpc.id
+  name   = lower("${var.tags.Name}-${var.tags.Service}")
+  vpc_id = data.aws_vpc.vpc.id
 
 
   ingress_cidr_blocks = ["10.0.0.0/16"]
