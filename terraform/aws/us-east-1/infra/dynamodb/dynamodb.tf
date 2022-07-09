@@ -1,7 +1,7 @@
 module "dynamodb_table" {
-  source   = "terraform-aws-modules/dynamodb-table/aws"
+  source = "terraform-aws-modules/dynamodb-table/aws"
 
-  name     = ""
+  name     = ower(replace(join("", ["${var.tags.Name}", "${var.tags.Service}"]), "-", "_"))
   hash_key = "id"
 
   attributes = [
@@ -11,5 +11,8 @@ module "dynamodb_table" {
     }
   ]
 
-  tags = var.tags
+  tags = {
+    Terraform   = "true"
+    Environment = "staging"
+  }
 }
