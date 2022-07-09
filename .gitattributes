@@ -1,0 +1,8 @@
+# Exclude files
+*.md !filter !diff
+*.tf !filter !diff
+*.sh !filter !diff
+*.hcl !filter !diff
+*.json !filter !diff
+.gitignore !filter !diff
+.gitattributes !filter !diff
