@@ -38,9 +38,8 @@ override.tf.json
 #**/.terragrunt-cache/*
 builds
 
-# End of https://www.toptal.com/developers/gitignore/api/terragrunt,terraform
-terraform.key
-
 .idea/*
 
 .DS_Store
+
+.github
