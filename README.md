@@ -6,7 +6,7 @@
     in project-devops/terraform/aws/us-east-1/infra/terragrunt.hcl
     ```
 
-- Configure access credentials for aws
+- Configure access credentials for aws:
     ```
     $ aws configure --profile profile_name
     ```
