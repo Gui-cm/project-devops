@@ -8,7 +8,7 @@ resource "aws_ecs_task_definition" "project_devops" {
   container_definitions    = <<DEFINITION
   [
     {
-      "image": "guizinmoraes/python-flask-1:main",
+      "image": "593387113088.dkr.ecr.us-east-1.amazonaws.com/python-flask:latest",
       "cpu": 1024,
       "memory": 2048,
       "name": "project-devops-app",
@@ -38,11 +38,11 @@ resource "aws_ecs_task_definition" "project_devops" {
 
 resource "aws_ecs_service" "hello_world" {
 
-  name            = lower("ecs-service-${var.tags.Name}")
-  cluster         = lower("cluster-${var.tags.Name}")
-  task_definition = aws_ecs_task_definition.project_devops.arn
-  desired_count   = var.service_desired_count
-  launch_type     = "FARGATE"
+  name    = lower("ecs-service-${var.tags.Name}")
+  cluster = lower("cluster-${var.tags.Name}")
+  #task_definition = aws_ecs_task_definition.project_devops.arn
+  desired_count = var.service_desired_count
+  launch_type   = "FARGATE"
 
   network_configuration {
     security_groups = [module.sg.security_group_id]
