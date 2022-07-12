@@ -40,6 +40,6 @@ variable "dns" {
   description = "List of DNS"
 
   default = [
-    "cms-frontend-smoke.getninjas.com.br",
+    "www.guicmtech.com.br",
   ]
 }

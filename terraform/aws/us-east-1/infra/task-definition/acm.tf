@@ -1,8 +1,8 @@
 module "acm_request_certificate" {
   source = "cloudposse/acm-request-certificate/aws"
-  # Cloud Posse recommends pinning every module to a specific version
-  # version = "x.x.x"
-  domain_name                       = "example.com"
+
+  domain_name                       = "guicmtech.com.br"
   process_domain_validation_options = true
   ttl                               = "300"
+  subject_alternative_names         = ["*.guicmtech.com.br"]
 }

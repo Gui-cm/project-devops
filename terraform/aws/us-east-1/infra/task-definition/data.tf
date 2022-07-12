@@ -1,40 +1,32 @@
-
-data "template_file" "service_template" {
-  template = file("${path.module}/service-template-task/service2.json")
-
-  vars = {
-    app-name      = lower(var.tags.Name)
-    containerPort = var.container_port
-    env           = lower(var.tags.Service)
-    cpu           = tonumber(var.container_cpu)
-    mem           = tonumber(var.container_memory)
-    memRes        = tonumber(var.container_memory_reservation)
-  }
-}
-
-data "aws_vpc" "project_devops" {
+data "aws_vpc" "my_vpc" {
   filter {
     name   = "tag:Name"
-    values = ["Project-DevOps"]
+    values = ["Project-*"]
   }
 }
 
-data "aws_ssm_parameter" "external_alb_listener_arn_ninja" {
-  name = join("", [lower("/ninja/smoke/"), "ALB_LISTENER_PUBLIC"])
-}
-
-data "template_file" "iam_policy" {
-  template = file("${path.module}/policies/iam.json")
-
-  vars = {
-    bucket = "arn:aws:s3:::project-devops-frontend-gcm"
-  }
-}
-
-data "aws_vpc" "vpc" {
+data "aws_subnet_ids" "prv" {
+  vpc_id = data.aws_vpc.my_vpc.id
 
   filter {
     name   = "tag:Name"
-    values = ["Project*"]
+    values = ["subnet-private"]
   }
+}
+
+data "aws_subnet_ids" "pub" {
+  vpc_id = data.aws_vpc.my_vpc.id
+
+  filter {
+    name   = "tag:Name"
+    values = ["subnet-public"]
+  }
+}
+
+output "aws_subnet_ids_prv" {
+  value = data.aws_subnet_ids.prv.ids
+}
+
+output "aws_subnet_ids_pub" {
+  value = data.aws_subnet_ids.pub.ids
 }
