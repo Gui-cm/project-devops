@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Upload html
+    aws_s3:
+      bucket: project-devops-frontend-gcm
+      object: index.html
+      src: "file_s3/index.html"
+      mode: put
+  - name: Upload html
+    aws_s3:
+      bucket: project-devops-frontend-gcm
+      object: style.css
+      src: "file_s3/style.css"
+      mode: put
+  - name: Create a folder for bucket
+    aws_s3:
+      bucket: project-devops-frontend-gcm
+      object: teste/01
+      mode: create
+
+#run
+##ansible-playbook -i hosts s3_bucket.yaml
