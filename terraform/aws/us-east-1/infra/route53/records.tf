@@ -25,7 +25,7 @@ module "records_api" {
       name    = "api"
       type    = "CNAME"
       ttl     = 300
-      records = "sbadjasdbnjak"
+      records = "ecs-lb-1510745440.us-east-1.elb.amazonaws.com"
     }
   ]
 }
