@@ -7,12 +7,12 @@
     ```
 
 - Configure access credentials for aws
-    - `aws_access_key_id: AJISNAKJFAMSBSJBAA`
-    - `aws_secret_access_key: jijhddfhdsfunidshASIFBHSDHUFGHFUSjbhjsdb`
-
     ```
     $ aws configure --profile profile_name
     ```
+
+    - `aws_access_key_id: AJISNAKJFAMSBSJBAA`
+    - `aws_secret_access_key: jijhddfhdsfunidshASIFBHSDHUFGHFUSjbhjsdb`
 
 - Change the profile_name for terragunt use your credentials you configured:
     ```
