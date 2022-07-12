@@ -1,3 +1,21 @@
+# To use this repository you need
+- Create a bucket in AWS S3 to save your state files
+- Change the `bucket` in `project-devops/terraform/aws/us-east-1/infra/terragrunt.hcl`
+- Configure access credentials for aws
+    - aws_access_key_id
+    - aws_secret_access_key
+    ```
+    $ aws configure --profile profile_name
+    ```
+- Change the profile_name for terragunt use your credentials you configured in `project-devops/terraform/aws/us-east-1/infra/account-common.hcl`
+- Change the directory of the resource you want to create with terraform:
+    ```
+    $ terragunt init
+    ```
+- To change the region where you will upload your infrastructure, just change the file in `project-devops/terraform/aws/us-east-1/infra/region-common.hcl`
+
+## Created to organize, structure and facilitate the use of Terraform
+
 # TERRAFORM
 
 ## Created to organize, structure and facilitate the use of Terraform
