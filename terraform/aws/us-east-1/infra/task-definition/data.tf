@@ -8,25 +8,23 @@ data "aws_vpc" "my_vpc" {
 data "aws_subnet_ids" "prv" {
   vpc_id = data.aws_vpc.my_vpc.id
 
-  filter {
-    name   = "tag:Name"
-    values = ["subnet-private"]
+  tags = {
+    Name = "subnet-private"
   }
 }
 
 data "aws_subnet_ids" "pub" {
   vpc_id = data.aws_vpc.my_vpc.id
 
-  filter {
-    name   = "tag:Name"
-    values = ["subnet-public"]
+  tags = {
+    Name = "subnet-public"
   }
 }
 
-output "aws_subnet_ids_prv" {
-  value = data.aws_subnet_ids.prv.ids
-}
+data "template_file" "policy" {
+  template = file("${path.module}/policies/iam.json")
 
-output "aws_subnet_ids_pub" {
-  value = data.aws_subnet_ids.pub.ids
+  vars = {
+    resource = "*"
+  }
 }

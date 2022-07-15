@@ -1,10 +1,10 @@
 resource "aws_ecs_task_definition" "project_devops" {
-  family                   = "project-devops-app"
+  family                   = lower("${var.tags.Name}-app")
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 1024
   memory                   = 2048
-  execution_role_arn       = "arn:aws:iam::593387113088:role/ecsTaskExecutionRole"
+  execution_role_arn       = module.role.iam_role_arn
   container_definitions    = <<DEFINITION
   [
     {
@@ -31,29 +31,29 @@ resource "aws_ecs_task_definition" "project_devops" {
     }
   ]
   DEFINITION
-  task_role_arn            = "arn:aws:iam::593387113088:role/ecsTaskExecutionRole"
+  task_role_arn            = module.role.iam_role_arn
 
   tags = var.tags
 }
 
-resource "aws_ecs_service" "hello_world" {
+resource "aws_ecs_service" "ecs_service" {
 
-  name    = lower("ecs-service-${var.tags.Name}")
-  cluster = lower("cluster-${var.tags.Name}")
-  #task_definition = aws_ecs_task_definition.project_devops.arn
-  desired_count = var.service_desired_count
-  launch_type   = "FARGATE"
+  name            = lower("ecs-service-${var.tags.Name}")
+  cluster         = lower("cluster-${var.tags.Name}")
+  task_definition = aws_ecs_task_definition.project_devops.arn
+  desired_count   = var.service_desired_count
+  launch_type     = "FARGATE"
 
   network_configuration {
     security_groups = [module.sg.security_group_id]
-    subnets         = ["subnet-0df2933287dcba55a", "subnet-0952cf56abf58ef20"]
+    subnets         = [for s in data.aws_subnet_ids.prv.ids : s if replace(s, "-lb-", "") == s]
   }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.tg.id
-    container_name   = "project-devops-app"
+    container_name   = lower("${var.tags.Name}-app")
     container_port   = 80
   }
 
-  depends_on = [aws_lb_listener.hello_world]
+  depends_on = [aws_lb_listener.lb_listener]
 }

@@ -1,15 +1,16 @@
 resource "aws_lb" "lb" {
+  #for_each = data.aws_subnet_ids.pub
   name            = "ecs-lb"
-  subnets         = ["subnet-0e0c9603e4dc8efbf", "subnet-08d9c1f703ea5471c"]
+  subnets         = [for s in data.aws_subnet_ids.pub.ids : s if replace(s, "-lb-", "") == s]
   security_groups = [module.sg.security_group_id]
 }
 
-resource "aws_lb_listener" "hello_world" {
+resource "aws_lb_listener" "lb_listener" {
+  #for_each = data.aws_subnet_ids.pub
   load_balancer_arn = aws_lb.lb.id
   port              = "443"
   protocol          = "HTTPS"
-  certificate_arn   = "arn:aws:acm:us-east-1:593387113088:certificate/17dd61f5-999e-483f-b951-1b5a67d415cf"
-
+  certificate_arn   = module.acm_request_certificate.arn
   default_action {
     target_group_arn = aws_lb_target_group.tg.id
     type             = "forward"
