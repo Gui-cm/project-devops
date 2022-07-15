@@ -15,14 +15,11 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_records"></a> [records](#module\_records) | github.com/terraform-aws-modules/terraform-aws-route53//modules/records | v2.0.0 |
-| <a name="module_records_api"></a> [records\_api](#module\_records\_api) | github.com/terraform-aws-modules/terraform-aws-route53//modules/records | v2.0.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_route53_zone.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone) | resource |
-| [aws_cloudfront_distribution.cdn_arn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudfront_distribution) | data source |
 | [aws_route53_zone.guicmtech](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 
 ## Inputs
